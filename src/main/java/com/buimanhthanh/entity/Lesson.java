@@ -1,10 +1,14 @@
 package com.buimanhthanh.entity;
 
+import lombok.Data;
+
 import javax.persistence.*;
 import java.util.Collection;
 import java.util.Objects;
 
 @Entity
+@Table(name = "lesson")
+@Data
 public class Lesson {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id

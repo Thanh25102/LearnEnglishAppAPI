@@ -1,10 +1,17 @@
 package com.buimanhthanh.entity;
 
+import lombok.Data;
+import org.hibernate.FetchMode;
+import org.hibernate.annotations.Fetch;
+
 import javax.persistence.*;
 import java.util.Collection;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
+@Table(name = "account")
+@Data
 public class Account {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
@@ -22,94 +29,21 @@ public class Account {
     @Basic
     @Column(name = "email")
     private String email;
-    @OneToMany(mappedBy = "accountByAccountId")
-    private Collection<AccountDetail> accountDetailsById;
-    @OneToMany(mappedBy = "accountByAccountId")
-    private Collection<AccountRank> accountRanksById;
-    @OneToMany(mappedBy = "accountByAccountId")
-    private Collection<AccountTopic> accountTopicsById;
 
-    public Account( String username, String password, String fullName, String email) {
-        this.username = username;
-        this.password = password;
-        this.fullName = fullName;
-        this.email = email;
-    }
+    @ManyToMany
+    @JoinTable(name = "account_detail",joinColumns = @JoinColumn(name = "account_id"),
+                inverseJoinColumns = @JoinColumn(name = "vocabulary_id"))
+    private Set<Vocabulary> vocabularies;
 
-    public Integer getId() {
-        return id;
-    }
+    @ManyToMany
+    @JoinTable(name="account_rank",joinColumns = @JoinColumn(name = "account_id"),
+                inverseJoinColumns = @JoinColumn(name = "rank_id"))
+    private Set<Rank> ranks;
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
 
-    public String getUsername() {
-        return username;
-    }
+    @ManyToMany
+    @JoinTable(name = "account_topic",joinColumns = @JoinColumn(name = "account_id"),
+                inverseJoinColumns = @JoinColumn(name = "topic_id"))
+    private Set<Topic> topics;
 
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public String getFullName() {
-        return fullName;
-    }
-
-    public void setFullName(String fullName) {
-        this.fullName = fullName;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Account account = (Account) o;
-        return Objects.equals(id, account.id) && Objects.equals(username, account.username) && Objects.equals(password, account.password) && Objects.equals(fullName, account.fullName) && Objects.equals(email, account.email);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, username, password, fullName, email);
-    }
-
-    public Collection<AccountDetail> getAccountDetailsById() {
-        return accountDetailsById;
-    }
-
-    public void setAccountDetailsById(Collection<AccountDetail> accountDetailsById) {
-        this.accountDetailsById = accountDetailsById;
-    }
-
-    public Collection<AccountRank> getAccountRanksById() {
-        return accountRanksById;
-    }
-
-    public void setAccountRanksById(Collection<AccountRank> accountRanksById) {
-        this.accountRanksById = accountRanksById;
-    }
-
-    public Collection<AccountTopic> getAccountTopicsById() {
-        return accountTopicsById;
-    }
-
-    public void setAccountTopicsById(Collection<AccountTopic> accountTopicsById) {
-        this.accountTopicsById = accountTopicsById;
-    }
 }
