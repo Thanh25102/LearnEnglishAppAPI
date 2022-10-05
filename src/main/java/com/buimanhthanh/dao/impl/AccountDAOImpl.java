@@ -1,6 +1,7 @@
 package com.buimanhthanh.dao.impl;
 
 import com.buimanhthanh.dao.AccountDAO;
+import com.buimanhthanh.dto.AccountDTO;
 import com.buimanhthanh.entity.Account;
 import org.hibernate.HibernateException;
 import org.hibernate.SessionFactory;
@@ -17,7 +18,7 @@ public class AccountDAOImpl implements AccountDAO {
     private SessionFactory session;
 
     @Override
-    public Optional<List<Account>> findAll() {
+    public Optional<List<AccountDTO>> findAll() {
 //        CriteriaBuilder cb = session.getCurrentSession().getCriteriaBuilder();
 //        CriteriaQuery<Account> cq = cb.createQuery(Account.class);
 //        Root<Account> rootEntry = cq.from(Account.class);
@@ -25,13 +26,13 @@ public class AccountDAOImpl implements AccountDAO {
 //
 //        TypedQuery<Account> allQuery = session.getCurrentSession().createQuery(all);
 //        return Optional.ofNullable(allQuery.getResultList());
-        return Optional.ofNullable(session.getCurrentSession().createQuery("from Account",Account.class)
+        return Optional.ofNullable(session.getCurrentSession().createQuery("select new com.buimanhthanh.dto.AccountDTO(a.id,a.username,a.password,a.fullName,a.email) from Account a", AccountDTO.class)
                 .getResultList());
     }
 
     @Override
-    public Optional<Account> findOne(Integer id) {
-        return session.getCurrentSession().createQuery("select a from Account as a where a.id =: i",Account.class)
+    public Optional<AccountDTO> findOne(Integer id) {
+        return session.getCurrentSession().createQuery("select new com.buimanhthanh.dto.AccountDTO(a.id,a.username,a.password,a.fullName,a.email) from Account a where a.id =: i",AccountDTO.class)
                 .setParameter("i",id).getResultList().stream().findFirst();
     }
 
@@ -53,7 +54,7 @@ public class AccountDAOImpl implements AccountDAO {
 
     @Override
     public void delete(Integer id) {
-        session.getCurrentSession().delete(id);
+        session.getCurrentSession().createQuery("delete from Account a where a.id =: i").setParameter("i",id).executeUpdate();
     }
 
     @Override

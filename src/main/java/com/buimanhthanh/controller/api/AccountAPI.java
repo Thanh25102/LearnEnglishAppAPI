@@ -1,8 +1,12 @@
 package com.buimanhthanh.controller.api;
 
+import com.buimanhthanh.dto.AccountDTO;
+import com.buimanhthanh.dto.ResponseObject;
 import com.buimanhthanh.entity.Account;
 import com.buimanhthanh.service.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -14,22 +18,48 @@ public class AccountAPI {
 
     @Autowired
     private AccountService accountService;
-
     @GetMapping("")
-    public List<Account> loadAccount(){
-        System.out.println(accountService.findAll().get().toString());
+    public List<AccountDTO>  loadAccount(){
         return accountService.findAll().get();
     }
 
     @GetMapping("/{id}")
-    public Account loadOneAccount(@PathVariable Integer id){
-        return accountService.findOne(id).get();
+    public ResponseEntity<ResponseObject>  loadOneAccount(@PathVariable Integer id){
+        Optional<AccountDTO> foundAccount = accountService.findOne(id);
+        return foundAccount.isPresent() ?
+                ResponseEntity.status(HttpStatus.OK).body(
+                        new ResponseObject("ok","Query account success",foundAccount.get())
+                ) :
+                ResponseEntity.status(HttpStatus.NOT_FOUND).body(
+                        new ResponseObject("failed","Cannot found account by id " + id,"")
+                );
     }
 
-    @PostMapping()
-    public Boolean addAccount(@RequestBody Account account){
-        return accountService.saveOrUpdate(account);
+    @PostMapping("")
+    public ResponseEntity<ResponseObject> addAccount(@RequestBody Account account){
+        return ResponseEntity.status(HttpStatus.OK).body(
+                new ResponseObject("ok", "Insert Account successfully", accountService.saveOrUpdate(account))
+        );
     }
 
+    @PutMapping("/{id}")
+    public ResponseEntity<ResponseObject> updateAccount(@RequestBody Account newAccount,@PathVariable Integer id){
+        newAccount.setId(id);
+        Optional<AccountDTO> foundAccount = accountService.findOne(id);
+        return foundAccount.isEmpty() ?
+                ResponseEntity.status(HttpStatus.NOT_FOUND).body(
+                        new ResponseObject("failed", "Not found account with id : "+id, false)
+                ) :
+                ResponseEntity.status(HttpStatus.OK).body(
+                        new ResponseObject("ok", "Update Account successfully", accountService.saveOrUpdate(newAccount))
+                );
+    }
 
+    @DeleteMapping("/{id}")
+    public ResponseEntity<ResponseObject> deleteAccount(@PathVariable Integer id){
+        accountService.delete(id);
+        return ResponseEntity.status(HttpStatus.OK).body(
+                new ResponseObject("ok","delete successfully",true)
+        );
+    }
 }

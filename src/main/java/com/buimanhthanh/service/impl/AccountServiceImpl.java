@@ -1,6 +1,7 @@
 package com.buimanhthanh.service.impl;
 
 import com.buimanhthanh.dao.AccountDAO;
+import com.buimanhthanh.dto.AccountDTO;
 import com.buimanhthanh.entity.Account;
 import com.buimanhthanh.service.AccountService;
 import org.hibernate.SessionFactory;
@@ -20,13 +21,13 @@ public class AccountServiceImpl implements AccountService {
 
     @Override
     @Transactional(propagation= Propagation.REQUIRED, readOnly=true, noRollbackFor=Exception.class)
-    public Optional<List<Account>> findAll() {
+    public Optional<List<AccountDTO>> findAll() {
         return accountDAO.findAll();
     }
 
     @Override
     @Transactional
-    public Optional<Account> findOne(Integer id) {
+    public Optional<AccountDTO> findOne(Integer id) {
         return accountDAO.findOne(id);
     }
 

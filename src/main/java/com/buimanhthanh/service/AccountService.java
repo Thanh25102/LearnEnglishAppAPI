@@ -1,13 +1,14 @@
 package com.buimanhthanh.service;
 
+import com.buimanhthanh.dto.AccountDTO;
 import com.buimanhthanh.entity.Account;
 
 import java.util.List;
 import java.util.Optional;
 
 public interface AccountService {
-    Optional<List<Account>> findAll();
-    Optional<Account> findOne(Integer id);
+    Optional<List<AccountDTO>> findAll();
+    Optional<AccountDTO> findOne(Integer id);
     boolean saveOrUpdate(Account account);
     void saveOrUpdate(List<Account> accounts);
     void delete(Integer id);

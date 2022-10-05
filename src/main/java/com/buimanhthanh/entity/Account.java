@@ -1,6 +1,8 @@
 package com.buimanhthanh.entity;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.hibernate.FetchMode;
 import org.hibernate.annotations.Fetch;
 
@@ -12,6 +14,8 @@ import java.util.Set;
 @Entity
 @Table(name = "account")
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class Account {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
@@ -30,7 +34,7 @@ public class Account {
     @Column(name = "email")
     private String email;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "account_detail",joinColumns = @JoinColumn(name = "account_id"),
                 inverseJoinColumns = @JoinColumn(name = "vocabulary_id"))
     private Set<Vocabulary> vocabularies;
@@ -40,10 +44,10 @@ public class Account {
                 inverseJoinColumns = @JoinColumn(name = "rank_id"))
     private Set<Rank> ranks;
 
-
     @ManyToMany
     @JoinTable(name = "account_topic",joinColumns = @JoinColumn(name = "account_id"),
                 inverseJoinColumns = @JoinColumn(name = "topic_id"))
     private Set<Topic> topics;
+
 
 }
