@@ -4,6 +4,7 @@ use LEARN_ENGLISH_APP;
 create table vocabulary(
 	id int primary key auto_increment,
     vocabulary varchar(100) not null,
+    phonetic varchar(100) not null,
     mean varchar(100) not null,
     audio varchar(255),
     image varchar(255),
@@ -11,6 +12,7 @@ create table vocabulary(
     meaning_exp varchar(255) not null,
     topic_id int not null
 );
+
 create table topic(
 	id int primary key auto_increment,
     represent varchar(255) not null,
@@ -67,10 +69,16 @@ alter table `topic` add foreign key(lesson_id) references `lesson`(id);
 alter table `vocabulary` add foreign key(topic_id) references `topic`(id);	
 
 #------------------------------------ add data ---------------------------------------------#
-
+#
 # insert into `account` values (null,"manhthanh","Thanh25102","BUi Manh THanh","manhthanh147@gmail.com"),
 #                              (null,"manhthanh","Thanh25102","BUi Manh THanh","manhthanh147@gmail.com");
-
+#
 # insert into `lesson` values  (null,"Toeic 100","Thành thạo 1000 từ toeic","This is description t"),
 #                              (null,"Ielt 100","Thành thạo 1000 từ ielt","This is description i"),
 #                              (null,"Simple 100","Thành thạo 1000 từ simple","This is description s");
+#
+# insert into `topic` values (null,"topic.png","This is topic from toeic 100 part1","Topic này thuộc về toeic 100 p1",1);
+#
+# insert into `vocabulary` values (null,"Dog","dpg","Chó","concho.mp3","concho.png","This is a dog","Đây là con chó",1),
+#                                 (null,"Cat","kat","Mèo","conmeo.mp3","conmeo.png","This is a cat","Đây là con mèo",1),
+#                                 (null,"Pig","big","Heo","conheo.mp3","conheo.png","This is a heo","Đây là con heo",1);

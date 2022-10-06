@@ -39,6 +39,7 @@ public class AccountAPI {
 
     @PostMapping("")
     public ResponseEntity<ResponseObject> addAccount(@RequestBody Account account){
+        account.setId(null);
         return ResponseEntity.status(HttpStatus.OK).body(
                 new ResponseObject("ok", "Insert Account successfully", accountService.saveOrUpdate(account))
         );

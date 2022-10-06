@@ -38,6 +38,7 @@ public class LessonAPI {
 
     @PostMapping("")
     public ResponseEntity<ResponseObject> addLesson(@RequestBody Lesson lesson){
+        lesson.setId(null);
         return ResponseEntity.status(HttpStatus.OK).body(
                 new ResponseObject("ok","Insert lesson success",lessonService.saveOrUpdate(lesson))
         );

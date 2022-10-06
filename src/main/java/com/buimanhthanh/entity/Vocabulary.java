@@ -1,6 +1,8 @@
 package com.buimanhthanh.entity;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.Collection;
@@ -10,6 +12,8 @@ import java.util.Set;
 @Entity
 @Table(name="vocabulary")
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class Vocabulary {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
@@ -18,6 +22,9 @@ public class Vocabulary {
     @Basic
     @Column(name = "vocabulary")
     private String vocabulary;
+    @Basic
+    @Column(name = "phonetic")
+    private String phonetic;
     @Basic
     @Column(name = "mean")
     private String mean;
