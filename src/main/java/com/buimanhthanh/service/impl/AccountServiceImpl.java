@@ -20,7 +20,7 @@ public class AccountServiceImpl implements AccountService {
     private AccountDAO accountDAO;
 
     @Override
-    @Transactional(propagation= Propagation.REQUIRED, readOnly=true, noRollbackFor=Exception.class)
+    @Transactional
     public Optional<List<AccountDTO>> findAll() {
         return accountDAO.findAll();
     }

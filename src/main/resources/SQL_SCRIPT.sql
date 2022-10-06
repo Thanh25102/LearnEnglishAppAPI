@@ -20,7 +20,7 @@ create table topic(
 );
 
 create table lesson(
-	id int primary key not null,
+	id int primary key auto_increment,
     `name` varchar(100) not null,
     target varchar(255) not null,
     `description` varchar(500)
@@ -66,6 +66,11 @@ alter table `account_topic` add foreign key(topic_id) references `topic`(id);
 alter table `topic` add foreign key(lesson_id) references `lesson`(id);	
 alter table `vocabulary` add foreign key(topic_id) references `topic`(id);	
 
-# insert
+#------------------------------------ add data ---------------------------------------------#
+
 # insert into `account` values (null,"manhthanh","Thanh25102","BUi Manh THanh","manhthanh147@gmail.com"),
 #                              (null,"manhthanh","Thanh25102","BUi Manh THanh","manhthanh147@gmail.com");
+
+# insert into `lesson` values  (null,"Toeic 100","Thành thạo 1000 từ toeic","This is description t"),
+#                              (null,"Ielt 100","Thành thạo 1000 từ ielt","This is description i"),
+#                              (null,"Simple 100","Thành thạo 1000 từ simple","This is description s");

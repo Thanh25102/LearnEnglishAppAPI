@@ -19,8 +19,10 @@ public class AccountAPI {
     @Autowired
     private AccountService accountService;
     @GetMapping("")
-    public List<AccountDTO>  loadAccount(){
-        return accountService.findAll().get();
+    public ResponseEntity<ResponseObject>  loadAccount(){
+        return ResponseEntity.status(HttpStatus.OK).body(
+                new ResponseObject("ok","Query lesson success",accountService.findAll().get())
+        );
     }
 
     @GetMapping("/{id}")
