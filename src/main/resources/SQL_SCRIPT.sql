@@ -82,3 +82,7 @@ alter table `vocabulary` add foreign key(topic_id) references `topic`(id);
 # insert into `vocabulary` values (null,"Dog","dpg","Chó","concho.mp3","concho.png","This is a dog","Đây là con chó",1),
 #                                 (null,"Cat","kat","Mèo","conmeo.mp3","conmeo.png","This is a cat","Đây là con mèo",1),
 #                                 (null,"Pig","big","Heo","conheo.mp3","conheo.png","This is a heo","Đây là con heo",1);
+#
+# insert into `tbl_rank` values (null,"Học 12 ngày liên tiếp","Bạn đã học 12 ngày","lt.png","Thanhtuu"),
+#                           (null,"Học 13 ngày liên tiếp","Bạn đã học 13 ngày","lt.png","Thanhtuu"),
+#                           (null,"Học 13 ngày liên tiếp","Bạn đã học 13 ngày","lt.png","Thanhtuu");

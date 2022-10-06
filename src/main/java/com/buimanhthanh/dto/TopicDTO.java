@@ -14,4 +14,5 @@ public class TopicDTO {
     private String represent;
     private String description;
     private String descriptiveMeaning;
+    private Integer lessonId;
 }

@@ -18,7 +18,6 @@ import java.util.Optional;
 public class VocabularyServiceImpl implements VocabularyService {
 
     @Autowired private VocabularyDAO vocabularyDAO;
-    @Autowired private TopicDAO topicDAO;
 
     @Override
     public Optional<List<VocabularyDTO>> findAll() {
